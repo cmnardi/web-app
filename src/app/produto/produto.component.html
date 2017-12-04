@@ -1,3 +1,21 @@
-<p>
-  produto works!
-</p>
+<h1>
+  Produtos
+</h1>
+
+<ul *ngFor="let produto of produtos">
+  <li>{{produto.nome}}</li>
+</ul>
+
+<ul>
+  <li><a href="#" (click)="listaProdutos(1)"> << </a></li>
+  <li *ngIf="pagina_atual>1"><a href="#" (click)="listaProdutos(pagina_atual-1)"> {{pagina_atual-1}} </a></li>
+  <li *ngIf="pagina_atual>1">{{pagina_atual}}</li>
+  <li *ngIf="pagina_atual!=ultima_pagina"><a href="#"  (click)="listaProdutos(pagina_atual+1)"> {{pagina_atual+1}}  </a></li>
+  <li><a href="#" (click)="listaProdutos(ultima_pagina)"> >> </a></li>
+</ul>
+
+<select (change)="listaProdutosP(itens_por_pagina)" #itens_por_pagina>
+  <option *ngFor="let i of opts_itens_por_pagina" [selected]="i == parametros.itens_por_pagina">
+    {{i}}
+  </option>
+</select>
