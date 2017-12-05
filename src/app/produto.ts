@@ -4,4 +4,5 @@ export class Produto {
     descricao: string;
     idProdutoCategoria: number;
     imagens: string[];
+    preco_atual: any;
 }
