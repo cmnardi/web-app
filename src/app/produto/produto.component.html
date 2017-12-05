@@ -1,5 +1,7 @@
+
 <p class="lead">
-  <mark>{{total}}</mark> itens encontrados
+    <mark>{{paginacao.total}}</mark> produtos encontrados
+    de <mark>{{paginacao.de_item}}</mark> até <mark>{{paginacao.ate_item}}</mark>
 </p>
 
 <table class="table tale-striped table-bordered">
@@ -14,21 +16,23 @@
       {{produto.descricao}}
     </td>
     <td>
-      <del>De {{produto.preco_atual[0].valorDe | currency: 'BRL'}}</del><br>
-      Por {{produto.preco_atual[0].valorPor | currency: 'BRL'}}
+        <span *ngIf="produto.preco_atual">
+            <del>De {{produto.preco_atual.valorDe | currency: 'BRL'}}</del><br>
+            Por {{produto.preco_atual.valorPor | currency: 'BRL'}}
+        </span>
     </td>
   </tr>
 </table>
 
 <div>
-  <span *ngIf="pagina_atual>1">
+  <span *ngIf="paginacao.pagina_atual>1">
     <a class="btn btn-default" href="#" (click)="listaProdutos(1)"> << </a>
-    <a class="btn btn-default" href="#" (click)="listaProdutos(pagina_atual-1)"> anterior </a>
+    <a class="btn btn-default" href="#" (click)="listaProdutos(paginacao.pagina_atual-1)"> anterior </a>
   </span>
-  {{pagina_atual}}
-  <span *ngIf="pagina_atual!=ultima_pagina">
-    <a href="#" class="btn btn-default" (click)="listaProdutos(pagina_atual+1)"> próxima  </a>
-    <a href="#" class="btn btn-default" (click)="listaProdutos(ultima_pagina)"> última </a>
+    <a class="btn btn-primary" href="#"> {{paginacao.pagina_atual}} </a>
+  <span *ngIf="paginacao.pagina_atual!=paginacao.ultima_pagina">
+    <a href="#" class="btn btn-default" (click)="listaProdutos(paginacao.pagina_atual+1)"> próxima  </a>
+    <a href="#" class="btn btn-default" (click)="listaProdutos(paginacao.ultima_pagina)"> última </a>
   </span>
 </div>
 

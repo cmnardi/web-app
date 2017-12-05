@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdutoService } from '../produto.service';
 import {Produto} from '../produto';
+import {Paginacao} from '../paginacao';
 
 
 export class Parametros {
@@ -16,10 +17,9 @@ export class Parametros {
 export class ProdutoComponent implements OnInit {
 
   public produtos: Produto[];
-  public pagina_atual: number;
-  public ultima_pagina: number;
   public opts_itens_por_pagina;
-  public parametros:Parametros;
+  public parametros: Parametros;
+  public paginacao: Paginacao;
 
   constructor(
       private produtoService: ProdutoService
@@ -28,9 +28,10 @@ export class ProdutoComponent implements OnInit {
     this.parametros = new Parametros();
     this.parametros.pagina = 1;
     this.parametros.itens_por_pagina = 3;
+    this.paginacao = new Paginacao();
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.lista();
   }
 
@@ -48,10 +49,33 @@ export class ProdutoComponent implements OnInit {
   lista() {
     this.produtoService.get(this.parametros).subscribe((r) => {
       this.produtos = r['data'];
-      this.pagina_atual = r['current_page'];
-      this.ultima_pagina = r['last_page'];
+      this.paginacao.pagina_atual = r['current_page'];
+      this.paginacao.ultima_pagina = r['last_page'];
+      this.paginacao.total = r['total'];
+      this.paginacao.de_item = r['from'];
+      this.paginacao.ate_item = r['to'];
+      this.paginacao.total = r['total'];
+
     }, (f) => {
       console.error(f);
     });
   }
+
+    lista2(service, p, itens) {
+        const param = new Parametros();
+        param.pagina = p;
+        param.itens_por_pagina = 2;
+        service.get(param).subscribe((r) => {
+            itens = r['data'];
+            this.paginacao.pagina_atual = r['current_page'];
+            this.paginacao.ultima_pagina = r['last_page'];
+            this.paginacao.total = r['total'];
+            this.paginacao.de_item = r['from'];
+            this.paginacao.ate_item = r['to'];
+            this.paginacao.total = r['total'];
+
+        }, (f) => {
+            console.error(f);
+        });
+    }
 }
