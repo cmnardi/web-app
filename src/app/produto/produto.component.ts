@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdutoService } from '../produto.service';
-import {Produto} from '../produto';
 import {Paginacao} from '../paginacao';
-
-
-export class Parametros {
-  pagina: number;
-  itens_por_pagina: number;
-  q: string;
-}
+import {Parametros} from '../parametros';
 
 @Component({
   selector: 'app-produto',
@@ -17,7 +10,6 @@ export class Parametros {
 })
 export class ProdutoComponent implements OnInit {
 
-  public produtos: Produto[];
   public opts_itens_por_pagina;
   public parametros: Parametros;
   public paginacao: Paginacao;
@@ -29,7 +21,7 @@ export class ProdutoComponent implements OnInit {
     this.parametros = new Parametros();
     this.parametros.pagina = 1;
     this.parametros.itens_por_pagina = 3;
-    this.paginacao = new Paginacao();
+    this.paginacao = new Paginacao(this.produtoService);
   }
 
   ngOnInit() {
@@ -41,25 +33,14 @@ export class ProdutoComponent implements OnInit {
     this.lista();
   }
 
-  listaProdutosP(itens_por_pagina) {
+  altera_qt_por_pagina(itens_por_pagina) {
     this.parametros.pagina = 1;
     this.parametros.itens_por_pagina = itens_por_pagina.value;
     this.lista();
   }
 
   lista() {
-    this.produtoService.get(this.parametros).subscribe((r) => {
-      this.produtos = r['data'];
-      this.paginacao.pagina_atual = r['current_page'];
-      this.paginacao.set_ultima_pagina = r['last_page'];
-      this.paginacao.total = r['total'];
-      this.paginacao.de_item = r['from'];
-      this.paginacao.ate_item = r['to'];
-      this.paginacao.total = r['total'];
-
-    }, (f) => {
-      console.error(f);
-    });
+    this.paginacao.lista(this.parametros);
   }
 
   buscaProdutos (busca) {

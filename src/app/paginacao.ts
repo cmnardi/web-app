@@ -1,3 +1,5 @@
+import {Parametros} from './parametros';
+
 export class Paginacao {
     total: number;
     itens_por_pagina: number;
@@ -6,6 +8,13 @@ export class Paginacao {
     de_item: number;
     ate_item: number;
     paginas: number[];
+    itens: any;
+
+    constructor (
+        private service
+    ) {
+
+    }
 
     set set_ultima_pagina(n: number){
         this.paginas = new Array<number>();
@@ -33,5 +42,19 @@ export class Paginacao {
 
     get e_ultima_pagina(): boolean {
         return this.pagina_atual == this.ultima_pagina;
+    }
+
+    lista(parametros: Parametros) {
+        this.service.get(parametros).subscribe((r) => {
+            this.itens = r['data'];
+            this.pagina_atual = r['current_page'];
+            this.set_ultima_pagina = r['last_page'];
+            this.total = r['total'];
+            this.de_item = r['from'];
+            this.ate_item = r['to'];
+            this.total = r['total'];
+        }, (f) => {
+            console.error(f);
+        });
     }
 }
