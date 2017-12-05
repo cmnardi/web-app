@@ -24,15 +24,16 @@
 
 <table class="table tale-striped table-bordered">
     <tr *ngFor="let produto of paginacao.itens">
-        <td>
-      <span *ngFor="let imagem of produto.imagens">
-        <img src="{{imagem.url}}" height="50">
-      </span>
-        </td>
-        <td>
-            <h3>{{produto.nome}}</h3>
-            {{produto.descricao}}
-        </td>
+      <td>
+          <span *ngFor="let imagem of produto.imagens">
+            <img src="{{imagem.url}}" height="50">
+          </span>
+      </td>
+      <td>
+        <h3>{{produto.nome}}</h3>
+        <strong>{{produto.categoria.nome}}</strong><br>
+        {{produto.descricao}}
+      </td>
         <td>
         <span *ngIf="produto.preco_atual">
             <del>De {{produto.preco_atual.valorDe | currency: 'BRL'}}</del><br>
