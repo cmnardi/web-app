@@ -1,9 +1,9 @@
-<div class="col-sm-6 col-xs-12 text-right">
+<div class="col-sm-7 col-xs-12 text-right">
     <span *ngIf="!paginacao.e_primeira_pagina">
-        <button class="btn btn-primary btn-lg" href="#" (click)="mudaPagina(1)">
+        <button class="btn btn-primary btn-lg" href="#" (click)="muda_pagina(1)">
             <span class="glyphicon glyphicon-backward"></span>
         </button>
-        <button class="btn btn-primary btn-lg" href="#" (click)="mudaPagina(paginacao.pagina_anterior)">
+        <button class="btn btn-primary btn-lg" href="#" (click)="muda_pagina(paginacao.pagina_anterior)">
             <span class="glyphicon glyphicon-step-backward"></span>
         </button>
     </span>
@@ -11,16 +11,16 @@
         <button class="btn btn-lg"
                 [ngClass]="p == paginacao.pagina_atual ? 'btn-default' : 'btn-primary'"
                 [disabled]="p == paginacao.pagina_atual"
-                (click)="mudaPagina(p)">
+                (click)="muda_pagina(p)">
             {{p}}
         </button>
     </span>
 
     <span *ngIf="paginacao.e_ultima_pagina == false">
-        <button href="#" class="btn btn-primary btn-lg" (click)="mudaPagina(paginacao.proxima_pagina)">
+        <button href="#" class="btn btn-primary btn-lg" (click)="muda_pagina(paginacao.proxima_pagina)">
             <span class="glyphicon glyphicon-step-forward"></span>
         </button>
-        <button href="#" class="btn btn-primary btn-lg" (click)="mudaPagina(paginacao.ultima_pagina)">
+        <button href="#" class="btn btn-primary btn-lg" (click)="muda_pagina(paginacao.ultima_pagina)">
             <span class="glyphicon glyphicon-forward"></span>
         </button>
       </span>

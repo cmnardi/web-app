@@ -17,10 +17,10 @@ export class ProdutoComponent implements OnInit {
   constructor(
       private produtoService: ProdutoService
   ) {
-    this.opts_itens_por_pagina = [2, 3, 4, 5];
+    this.opts_itens_por_pagina = [5, 10, 15, 20];
     this.parametros = new Parametros();
     this.parametros.pagina = 1;
-    this.parametros.itens_por_pagina = 3;
+    this.parametros.itens_por_pagina = 10;
     this.paginacao = new Paginacao(this.produtoService);
   }
 

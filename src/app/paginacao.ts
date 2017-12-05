@@ -19,10 +19,20 @@ export class Paginacao {
     set set_ultima_pagina(n: number){
         this.paginas = new Array<number>();
         this.ultima_pagina = n;
-        for (let i = 1; i <= n; i++) {
-            this.paginas.push(i);
+        if ( this.ultima_pagina <= 5 ) {
+            for (let i = 1; i <= n; i++) {
+                this.paginas.push(i);
+            }
+        } else {
+            let i = this.pagina_atual <= 3 ? 1 : this.pagina_atual - 2;
+            let f = this.pagina_atual + 2;
+            if ( f > this.ultima_pagina ) {
+                f = this.ultima_pagina;
+            }
+            for (let j = i; j <= f; j++ ) {
+                this.paginas.push(j);
+            }
         }
-        console.info("caregou pags", this.paginas);
     }
 
     get pagina_anterior(): number {
