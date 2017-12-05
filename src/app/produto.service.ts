@@ -13,12 +13,13 @@ export class ProdutoService {
   }
 
     get(params)  {
-        let get:string;
-        if (params.pagina) {
-            get = 'page='+params.pagina;
-        }
+        let get : string;
+        get = 'page='+params.pagina;
         if (params.itens_por_pagina) {
             get += '&itens_per_page='+params.itens_por_pagina;
+        }
+        if ( params.q ){
+            get += '&q='+params.q;
         }
         return this.http.get(
             this.url+'?'+get
