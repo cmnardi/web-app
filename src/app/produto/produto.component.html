@@ -1,18 +1,36 @@
-<h1>
-  Produtos
-</h1>
+<p class="lead">
+  <mark>{{total}}</mark> itens encontrados
+</p>
 
-<ul *ngFor="let produto of produtos">
-  <li>{{produto.nome}}</li>
-</ul>
+<table class="table tale-striped table-bordered">
+  <tr *ngFor="let produto of produtos">
+    <td>
+      <span *ngFor="let imagem of produto.imagens">
+        <img src="{{imagem.url}}" height="50">
+      </span>
+    </td>
+    <td>
+      <h3>{{produto.nome}}</h3>
+      {{produto.descricao}}
+    </td>
+    <td>
+      <del>De {{produto.preco_atual[0].valorDe | currency: 'BRL'}}</del><br>
+      Por {{produto.preco_atual[0].valorPor | currency: 'BRL'}}
+    </td>
+  </tr>
+</table>
 
-<ul>
-  <li><a href="#" (click)="listaProdutos(1)"> << </a></li>
-  <li *ngIf="pagina_atual>1"><a href="#" (click)="listaProdutos(pagina_atual-1)"> {{pagina_atual-1}} </a></li>
-  <li *ngIf="pagina_atual>1">{{pagina_atual}}</li>
-  <li *ngIf="pagina_atual!=ultima_pagina"><a href="#"  (click)="listaProdutos(pagina_atual+1)"> {{pagina_atual+1}}  </a></li>
-  <li><a href="#" (click)="listaProdutos(ultima_pagina)"> >> </a></li>
-</ul>
+<div>
+  <span *ngIf="pagina_atual>1">
+    <a class="btn btn-default" href="#" (click)="listaProdutos(1)"> << </a>
+    <a class="btn btn-default" href="#" (click)="listaProdutos(pagina_atual-1)"> anterior </a>
+  </span>
+  {{pagina_atual}}
+  <span *ngIf="pagina_atual!=ultima_pagina">
+    <a href="#" class="btn btn-default" (click)="listaProdutos(pagina_atual+1)"> próxima  </a>
+    <a href="#" class="btn btn-default" (click)="listaProdutos(ultima_pagina)"> última </a>
+  </span>
+</div>
 
 <select (change)="listaProdutosP(itens_por_pagina)" #itens_por_pagina>
   <option *ngFor="let i of opts_itens_por_pagina" [selected]="i == parametros.itens_por_pagina">

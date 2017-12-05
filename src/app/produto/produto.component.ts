@@ -8,7 +8,6 @@ export class Parametros {
   itens_por_pagina: number;
 }
 
-
 @Component({
   selector: 'app-produto',
   templateUrl: './produto.component.html',
@@ -41,6 +40,7 @@ export class ProdutoComponent implements OnInit {
   }
 
   listaProdutosP(itens_por_pagina) {
+    this.parametros.pagina = 1;
     this.parametros.itens_por_pagina = itens_por_pagina.value;
     this.lista();
   }
