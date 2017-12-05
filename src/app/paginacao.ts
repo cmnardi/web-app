@@ -22,6 +22,7 @@ export class Paginacao {
         for (let i = 1; i <= n; i++) {
             this.paginas.push(i);
         }
+        console.info("caregou pags", this.paginas);
     }
 
     get pagina_anterior(): number {
