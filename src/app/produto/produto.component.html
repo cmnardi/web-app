@@ -5,7 +5,7 @@
             de <mark>{{paginacao.de_item}}</mark> até <mark>{{paginacao.ate_item}}</mark>
         </p>
     </div>
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-6 col-xs-12 text-right">
         <div class="form-group has-feedback">
             <form class="form-inline" (submit)="buscaProdutos(busca)">
                 <div class="form-group has-feedback">
@@ -38,20 +38,23 @@
   </tr>
 </table>
 
-<div>
-  <span *ngIf="paginacao.pagina_atual>1">
-    <a class="btn btn-default" href="#" (click)="listaProdutos(1)"> << </a>
-    <a class="btn btn-default" href="#" (click)="listaProdutos(paginacao.pagina_atual-1)"> anterior </a>
-  </span>
-    <a class="btn btn-primary" href="#"> {{paginacao.pagina_atual}} </a>
-  <span *ngIf="paginacao.pagina_atual!=paginacao.ultima_pagina">
-    <a href="#" class="btn btn-default" (click)="listaProdutos(paginacao.pagina_atual+1)"> próxima  </a>
-    <a href="#" class="btn btn-default" (click)="listaProdutos(paginacao.ultima_pagina)"> última </a>
-  </span>
+<div class="row">
+    <div class="col-sm-6 col-xs-12">
+        <select (change)="listaProdutosP(itens_por_pagina)" #itens_por_pagina class="form-control">
+          <option *ngFor="let i of opts_itens_por_pagina" [selected]="i == parametros.itens_por_pagina">
+            {{i}} produtos por página
+          </option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-xs-12 text-right">
+      <span *ngIf="paginacao.pagina_atual>1">
+        <a class="btn btn-default" href="#" (click)="listaProdutos(1)"> << </a>
+        <a class="btn btn-default" href="#" (click)="listaProdutos(paginacao.pagina_atual-1)"> anterior </a>
+      </span>
+        <a class="btn btn-primary" href="#"> {{paginacao.pagina_atual}} </a>
+        <span *ngIf="paginacao.pagina_atual!=paginacao.ultima_pagina">
+        <a href="#" class="btn btn-default" (click)="listaProdutos(paginacao.pagina_atual+1)"> próxima  </a>
+        <a href="#" class="btn btn-default" (click)="listaProdutos(paginacao.ultima_pagina)"> última </a>
+      </span>
+    </div>
 </div>
-
-<select (change)="listaProdutosP(itens_por_pagina)" #itens_por_pagina>
-  <option *ngFor="let i of opts_itens_por_pagina" [selected]="i == parametros.itens_por_pagina">
-    {{i}}
-  </option>
-</select>
