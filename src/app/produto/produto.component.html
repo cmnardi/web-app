@@ -1,8 +1,12 @@
 <div class="row">
     <div class="col-md-6 col-xs-12">
         <p class="lead">
-            <mark>{{paginacao.total}}</mark> produtos encontrados
-            de <mark>{{paginacao.de_item}}</mark> até <mark>{{paginacao.ate_item}}</mark>
+            <mark>{{paginacao.total}}</mark>
+            produtos encontrados
+            de
+            <mark>{{paginacao.de_item}}</mark>
+            até
+            <mark>{{paginacao.ate_item}}</mark>
         </p>
     </div>
     <div class="col-md-6 col-xs-12 text-right">
@@ -19,42 +23,59 @@
 </div>
 
 <table class="table tale-striped table-bordered">
-  <tr *ngFor="let produto of produtos">
-    <td>
+    <tr *ngFor="let produto of produtos">
+        <td>
       <span *ngFor="let imagem of produto.imagens">
         <img src="{{imagem.url}}" height="50">
       </span>
-    </td>
-    <td>
-      <h3>{{produto.nome}}</h3>
-      {{produto.descricao}}
-    </td>
-    <td>
+        </td>
+        <td>
+            <h3>{{produto.nome}}</h3>
+            {{produto.descricao}}
+        </td>
+        <td>
         <span *ngIf="produto.preco_atual">
             <del>De {{produto.preco_atual.valorDe | currency: 'BRL'}}</del><br>
             Por {{produto.preco_atual.valorPor | currency: 'BRL'}}
         </span>
-    </td>
-  </tr>
+        </td>
+    </tr>
 </table>
 
 <div class="row">
     <div class="col-sm-6 col-xs-12">
-        <select (change)="listaProdutosP(itens_por_pagina)" #itens_por_pagina class="form-control">
-          <option *ngFor="let i of opts_itens_por_pagina" [selected]="i == parametros.itens_por_pagina">
-            {{i}} produtos por página
-          </option>
+        <select (change)="listaProdutosP(itens_por_pagina)" #itens_por_pagina class="form-control input-lg">
+            <option *ngFor="let i of opts_itens_por_pagina" [selected]="i == parametros.itens_por_pagina">
+                {{i}} produtos por página
+            </option>
         </select>
     </div>
     <div class="col-sm-6 col-xs-12 text-right">
       <span *ngIf="paginacao.pagina_atual>1">
-        <a class="btn btn-default" href="#" (click)="listaProdutos(1)"> << </a>
-        <a class="btn btn-default" href="#" (click)="listaProdutos(paginacao.pagina_atual-1)"> anterior </a>
+        <button class="btn btn-primary btn-lg" href="#" (click)="listaProdutos(1)">
+            <span class="glyphicon glyphicon-backward"></span>
+        </button>
+        <button class="btn btn-primary btn-lg" href="#" (click)="listaProdutos(paginacao.pagina_anterior)">
+            <span class="glyphicon glyphicon-step-backward"></span>
+        </button>
       </span>
-        <a class="btn btn-primary" href="#"> {{paginacao.pagina_atual}} </a>
+        <span *ngFor="let p of paginacao.paginas">
+        <button class="btn btn-lg"
+                [ngClass]="p == paginacao.pagina_atual ? 'btn-default' : 'btn-primary'"
+                [disabled]="p == paginacao.pagina_atual"
+                (click)="listaProdutos(p)"
+        >
+            {{p}}
+        </button>
+       </span>
+
         <span *ngIf="paginacao.pagina_atual!=paginacao.ultima_pagina">
-        <a href="#" class="btn btn-default" (click)="listaProdutos(paginacao.pagina_atual+1)"> próxima  </a>
-        <a href="#" class="btn btn-default" (click)="listaProdutos(paginacao.ultima_pagina)"> última </a>
+        <button href="#" class="btn btn-primary btn-lg" (click)="listaProdutos(paginacao.proxima_pagina)">
+            <span class="glyphicon glyphicon-step-forward"></span>
+        </button>
+        <button href="#" class="btn btn-primary btn-lg" (click)="listaProdutos(paginacao.ultima_pagina)">
+            <span class="glyphicon glyphicon-forward"></span>
+        </button>
       </span>
     </div>
 </div>

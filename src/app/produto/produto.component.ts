@@ -51,7 +51,7 @@ export class ProdutoComponent implements OnInit {
     this.produtoService.get(this.parametros).subscribe((r) => {
       this.produtos = r['data'];
       this.paginacao.pagina_atual = r['current_page'];
-      this.paginacao.ultima_pagina = r['last_page'];
+      this.paginacao.set_ultima_pagina = r['last_page'];
       this.paginacao.total = r['total'];
       this.paginacao.de_item = r['from'];
       this.paginacao.ate_item = r['to'];
