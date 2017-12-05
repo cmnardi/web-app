@@ -51,7 +51,7 @@
         </select>
     </div>
     <div class="col-sm-6 col-xs-12 text-right">
-      <span *ngIf="paginacao.pagina_atual>1">
+      <span *ngIf="!paginacao.e_primeira_pagina">
         <button class="btn btn-primary btn-lg" href="#" (click)="listaProdutos(1)">
             <span class="glyphicon glyphicon-backward"></span>
         </button>
@@ -59,17 +59,16 @@
             <span class="glyphicon glyphicon-step-backward"></span>
         </button>
       </span>
-        <span *ngFor="let p of paginacao.paginas">
+      <span *ngFor="let p of paginacao.paginas">
         <button class="btn btn-lg"
                 [ngClass]="p == paginacao.pagina_atual ? 'btn-default' : 'btn-primary'"
                 [disabled]="p == paginacao.pagina_atual"
-                (click)="listaProdutos(p)"
-        >
+                (click)="listaProdutos(p)">
             {{p}}
         </button>
-       </span>
+      </span>
 
-        <span *ngIf="paginacao.pagina_atual!=paginacao.ultima_pagina">
+      <span *ngIf="paginacao.e_ultima_pagina == false">
         <button href="#" class="btn btn-primary btn-lg" (click)="listaProdutos(paginacao.proxima_pagina)">
             <span class="glyphicon glyphicon-step-forward"></span>
         </button>

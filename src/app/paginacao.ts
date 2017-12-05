@@ -15,11 +15,23 @@ export class Paginacao {
         }
     }
 
-    get pagina_anterior() {
+    get pagina_anterior(): number {
         return (this.pagina_atual <= 1) ? 1 : (this.pagina_atual - 1);
     }
 
-    get proxima_pagina() {
+    get proxima_pagina(): number {
         return (this.pagina_atual >= this.ultima_pagina) ? this.ultima_pagina : (this.pagina_atual+1);
+    }
+
+    /**
+     * é primeira página?
+     * @returns {boolean}
+     */
+    get e_primeira_pagina(): boolean {
+        return this.pagina_atual == 1;
+    }
+
+    get e_ultima_pagina(): boolean {
+        return this.pagina_atual == this.ultima_pagina;
     }
 }
