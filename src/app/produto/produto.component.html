@@ -1,8 +1,22 @@
-
-<p class="lead">
-    <mark>{{paginacao.total}}</mark> produtos encontrados
-    de <mark>{{paginacao.de_item}}</mark> até <mark>{{paginacao.ate_item}}</mark>
-</p>
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <p class="lead">
+            <mark>{{paginacao.total}}</mark> produtos encontrados
+            de <mark>{{paginacao.de_item}}</mark> até <mark>{{paginacao.ate_item}}</mark>
+        </p>
+    </div>
+    <div class="col-md-6 col-xs-12">
+        <div class="form-group has-feedback">
+            <form class="form-inline" (submit)="buscaProdutos(busca)">
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" #busca>
+                    <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <button type="submit" class="btn btn-default">Buscar</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 <table class="table tale-striped table-bordered">
   <tr *ngFor="let produto of produtos">

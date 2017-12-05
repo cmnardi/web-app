@@ -7,6 +7,7 @@ import {Paginacao} from '../paginacao';
 export class Parametros {
   pagina: number;
   itens_por_pagina: number;
+  q: string;
 }
 
 @Component({
@@ -61,21 +62,9 @@ export class ProdutoComponent implements OnInit {
     });
   }
 
-    lista2(service, p, itens) {
-        const param = new Parametros();
-        param.pagina = p;
-        param.itens_por_pagina = 2;
-        service.get(param).subscribe((r) => {
-            itens = r['data'];
-            this.paginacao.pagina_atual = r['current_page'];
-            this.paginacao.ultima_pagina = r['last_page'];
-            this.paginacao.total = r['total'];
-            this.paginacao.de_item = r['from'];
-            this.paginacao.ate_item = r['to'];
-            this.paginacao.total = r['total'];
-
-        }, (f) => {
-            console.error(f);
-        });
-    }
+  buscaProdutos (busca) {
+    this.parametros.q = busca.value;
+    this.parametros.pagina = 1;
+    this.lista();
+  }
 }
